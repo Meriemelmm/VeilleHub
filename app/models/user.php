@@ -7,7 +7,7 @@
   private $password;
   private $status;
   private $role;
-  private $db ;
+  protected $db ;
    public function __construct() {
     $this->db= (new  database)->getconnect();
    
