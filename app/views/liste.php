@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Plateforme de Gestion de Veille Pédagogique</title>
   <link rel="stylesheet" href="styles.css">
-  <style>/* Styles généraux */
+  <style>
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
+  
   margin: 0;
   padding: 0;
 }
@@ -17,9 +17,9 @@ body {
   width: 90%;
   margin: 20px auto;
   padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ 
+  border-radius: 8px solid black;
+ 
 }
 
 h1 {
@@ -32,6 +32,7 @@ h1 {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  background-color: white;
 }
 
 .user-table th, .user-table td {
@@ -41,7 +42,7 @@ h1 {
 }
 
 .user-table th {
-  background-color: #4CAF50;
+ background-color: #800080; 
   color: white;
 }
 
@@ -58,10 +59,7 @@ h1 {
   font-weight: bold;
 }
 
-.user-table td:last-child:before {
-  content: "• ";
-  color: #4CAF50;
-}
+
 </style>
 </head>
 <body>
@@ -70,11 +68,13 @@ h1 {
     <table class="user-table">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Nom</th>
-          <th>Sujet</th>
-          <th>Date de Présentation</th>
-          <th>Statut</th>
+         
+          <th>username</th>
+          <th>email</th>
+          <th>role</th>
+          <th>Statut actuel</th>
+          <th>Statut change </th>
+          <th>action</th>
         </tr>
       </thead>
       <tbody>
@@ -82,10 +82,21 @@ h1 {
             ?>   
              <tr>
           <td><?php  echo $Etudiant ['username'] ?></td>
-          <td><?php  echo $Etudiant ['id'] ?></td>
+       
           <td><?php  echo $Etudiant ['email'] ?></td>
           <td><?php  echo $Etudiant ['role'] ?></td>
-          <td> <form action="/liste" method="POST">
+          <td><?php  echo $Etudiant ['status_compte'] ?></td>
+          <td>
+    <form action="/liste" method="POST">
+        <input type="hidden" name="userid" value="<?php echo $Etudiant['id']; ?>" />
+        <select name="status" id="">
+            <option value="en attente">En attente</option>
+            <option value="Approuver">Approuver</option>
+            <option value="Rejeter">Rejeter</option>
+        </select>
+        <button type="submit" name="update">Modifier</button>
+    </form>
+</td>  <td><form action="/liste" method="POST">
                         <input type="hidden" name="userid" value="<?php echo $Etudiant['id']; ?>" />
                        
                         <button type="submit" name="remove" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">
@@ -96,7 +107,7 @@ h1 {
             <?php endforeach  ?>
         
        
-        <!-- Ajoutez d'autres lignes selon les besoins -->
+       
       </tbody>
     </table>
   </div>

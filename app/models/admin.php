@@ -30,6 +30,21 @@ public function showUser(){
         return " erreur".$e->getMessage();
     }
  }
+ // Admin.php
+public function validatedCompte($status, $userid)
+{
+    try {
+        $updateStatus = $this->db->prepare("UPDATE users SET status_compte = :status WHERE id = :userid");
+        $updateStatus->execute([':status' => $status, ':userid' => $userid]);
+
+        header("Location: /liste?success=true");
+
+        exit();
+    } catch (PDOException $e) {
+        return "Erreur : " . $e->getMessage();
+    }
+}
+
 
 
 

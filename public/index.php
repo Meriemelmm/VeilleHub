@@ -18,8 +18,18 @@ $router = new Router();
 Route::setRouter($router);
 
 
-Route::get('/signUp', [AuthController::class, 'showSign']); 
+Route::get('/signUp',function() {
+       
+         $controller = new AuthController();
+        return $controller->showSign();
+     }); 
 Route::post('/signUp', [AuthController::class, 'handleSignUp']);  
+
+
+// Dans ton fichier de routage
+Route::post('/liste', [AdminController::class, 'updated']);
+
+ 
  
 Route::get('/liste', [adminController::class, 'getEtudiant']); 
 Route::post('/liste', [adminController::class, 'removed']); 
@@ -27,3 +37,4 @@ Route::post('/liste', [adminController::class, 'removed']);
 Route::get('/login', [AuthController::class, 'showlogin']); 
 Route::post('/login', [AuthController::class, 'handlelogin']);  
 $router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+
